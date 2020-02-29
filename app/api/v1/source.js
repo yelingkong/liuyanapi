@@ -8,66 +8,65 @@ const {
 } = require('lin-mizar');
 const { getSafeParamId } = require('../../libs/util');
 const {
-  BookSearchValidator,
-  CreateOrUpdateBookValidator
-} = require('../../validators/book');
+  SourceSearchValidator,
+  CreateOrUpdateSourceValidator
+} = require('../../validators/source');
 
 const { PositiveIdValidator } = require('../../validators/common');
-
 const { BookNotFound } = require('../../libs/err-code');
-const { BookDao } = require('../../dao/book');
+const { SourceDao } = require('../../dao/source');
 
-// book 的红图实例
+// source 的红图实例
 const sourceApi = new LinRouter({
   prefix: '/v1/source'
 });
 
-// book 的dao 数据库访问层实例
-const bookDto = new BookDao();
+// source 的dao 数据库访问层实例
+const SourceDto = new SourceDao();
 
 sourceApi.get('/:id', async ctx => {
   const v = await new PositiveIdValidator().validate(ctx);
   const id = v.get('path.id');
-  const book = await bookDto.getBook(id);
-  if (!book) {
+  const source = await SourceDto.getBook(id);
+  if (!source) {
     throw new NotFound({
       msg: '没有找到相关书籍'
     });
   }
-  ctx.json(book);
+  ctx.json(source);
 });
 
 sourceApi.get('/', async ctx => {
-  const books = await bookDto.getBooks();
-  // if (!books || books.length < 1) {
+  const sourcies = await SourceDto.getBooks();
+  // if (!sourcies || sourcies.length < 1) {
   //   throw new NotFound({
   //     msg: '没有找到相关书籍'
   //   });
   // }
-  ctx.json(books);
+  ctx.json(sourcies);
 });
 
 sourceApi.get('/search/one', async ctx => {
-  const v = await new BookSearchValidator().validate(ctx);
-  const book = await bookDto.getBookByKeyword(v.get('query.q'));
-  if (!book) {
+  const v = await new SourceSearchValidator().validate(ctx);
+  const source = await SourceDto.getBookByKeyword(v.get('query.q'));
+  if (!source) {
     throw new BookNotFound();
   }
-  ctx.json(book);
+  ctx.json(source);
 });
 
 sourceApi.post('/', async ctx => {
-  const v = await new CreateOrUpdateBookValidator().validate(ctx);
-  await bookDto.createBook(v);
+  const v = await new CreateOrUpdateSourceValidator().validate(ctx);
+  await SourceDto.createBook(v);
   ctx.success({
     msg: '新增来源成功'
   });
 });
 
 sourceApi.put('/:id', async ctx => {
-  const v = await new CreateOrUpdateBookValidator().validate(ctx);
+  const v = await new CreateOrUpdateSourceValidator().validate(ctx);
   const id = getSafeParamId(ctx);
-  await bookDto.updateBook(v, id);
+  await SourceDto.updateBook(v, id);
   ctx.success({
     msg: '更新来源成功'
   });
@@ -85,7 +84,7 @@ sourceApi.linDelete(
   async ctx => {
     const v = await new PositiveIdValidator().validate(ctx);
     const id = v.get('path.id');
-    await bookDto.deleteBook(id);
+    await SourceDto.deleteBook(id);
     ctx.success({
       msg: '删除来源成功'
     });

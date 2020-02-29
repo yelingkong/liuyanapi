@@ -1,22 +1,22 @@
 'use strict';
 
 const { NotFound, Forbidden } = require('lin-mizar');
-const { Book } = require('../models/book');
+const { Source } = require('../models/source');
 const Sequelize = require('sequelize');
 
-class BookDao {
-  async getBook (id) {
-    const book = await Book.findOne({
+class SourceDao {
+  async getSource (id) {
+    const source = await Source.findOne({
       where: {
         id,
         delete_time: null
       }
     });
-    return book;
+    return source;
   }
 
-  async getBookByKeyword (q) {
-    const book = await Book.findOne({
+  async getSourceByKeyword (q) {
+    const source = await Source.findOne({
       where: {
         title: {
           [Sequelize.Op.like]: `%${q}%`
@@ -24,30 +24,30 @@ class BookDao {
         delete_time: null
       }
     });
-    return book;
+    return source;
   }
 
-  async getBooks () {
-    const books = await Book.findAll({
+  async getSourcies () {
+    const sourcies = await Source.findAll({
       where: {
         delete_time: null
       }
     });
-    return books;
+    return sourcies;
   }
-  async createBook (v) {
-    const book = await Book.findOne({
+  async createSource (v) {
+    const source = await Source.findOne({
       where: {
         title: v.get('body.title'),
         delete_time: null
       }
     });
-    if (book) {
+    if (source) {
       throw new Forbidden({
         msg: '图书已存在'
       });
     }
-    const bk = new Book();
+    const bk = new Source();
     bk.title = v.get('body.title');
     bk.author = v.get('body.author');
     bk.summary = v.get('body.summary');
@@ -55,34 +55,34 @@ class BookDao {
     bk.save();
   }
 
-  async updateBook (v, id) {
-    const book = await Book.findByPk(id);
-    if (!book) {
+  async updateSource (v, id) {
+    const source = await Source.findByPk(id);
+    if (!source) {
       throw new NotFound({
         msg: '没有找到相关书籍'
       });
     }
-    book.title = v.get('body.title');
-    book.author = v.get('body.author');
-    book.summary = v.get('body.summary');
-    book.image = v.get('body.image');
-    book.save();
+    source.title = v.get('body.title');
+    source.author = v.get('body.author');
+    source.summary = v.get('body.summary');
+    source.image = v.get('body.image');
+    source.save();
   }
 
-  async deleteBook (id) {
-    const book = await Book.findOne({
+  async deleteSource (id) {
+    const source = await Source.findOne({
       where: {
         id,
         delete_time: null
       }
     });
-    if (!book) {
+    if (!source) {
       throw new NotFound({
         msg: '没有找到相关书籍'
       });
     }
-    book.destroy();
+    source.destroy();
   }
 }
 
-module.exports = { BookDao };
+module.exports = { SourceDao };
