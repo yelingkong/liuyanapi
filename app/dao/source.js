@@ -44,14 +44,11 @@ class SourceDao {
     });
     if (source) {
       throw new Forbidden({
-        msg: '图书已存在'
+        msg: '来源已存在'
       });
     }
     const bk = new Source();
     bk.title = v.get('body.title');
-    bk.author = v.get('body.author');
-    bk.summary = v.get('body.summary');
-    bk.image = v.get('body.image');
     bk.save();
   }
 
@@ -59,13 +56,10 @@ class SourceDao {
     const source = await Source.findByPk(id);
     if (!source) {
       throw new NotFound({
-        msg: '没有找到相关书籍'
+        msg: '没有找到相关来源'
       });
     }
     source.title = v.get('body.title');
-    source.author = v.get('body.author');
-    source.summary = v.get('body.summary');
-    source.image = v.get('body.image');
     source.save();
   }
 
@@ -78,7 +72,7 @@ class SourceDao {
     });
     if (!source) {
       throw new NotFound({
-        msg: '没有找到相关书籍'
+        msg: '没有找到相关来源'
       });
     }
     source.destroy();

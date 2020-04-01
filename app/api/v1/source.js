@@ -27,7 +27,7 @@ const SourceDto = new SourceDao();
 sourceApi.get('/:id', async ctx => {
   const v = await new PositiveIdValidator().validate(ctx);
   const id = v.get('path.id');
-  const source = await SourceDto.getBook(id);
+  const source = await SourceDto.getSource(id);
   if (!source) {
     throw new NotFound({
       msg: '没有找到相关书籍'
@@ -37,7 +37,7 @@ sourceApi.get('/:id', async ctx => {
 });
 
 sourceApi.get('/', async ctx => {
-  const sourcies = await SourceDto.getBooks();
+  const sourcies = await SourceDto.getSourcies();
   // if (!sourcies || sourcies.length < 1) {
   //   throw new NotFound({
   //     msg: '没有找到相关书籍'
@@ -48,7 +48,7 @@ sourceApi.get('/', async ctx => {
 
 sourceApi.get('/search/one', async ctx => {
   const v = await new SourceSearchValidator().validate(ctx);
-  const source = await SourceDto.getBookByKeyword(v.get('query.q'));
+  const source = await SourceDto.getSourceByKeyword(v.get('query.q'));
   if (!source) {
     throw new BookNotFound();
   }
@@ -57,7 +57,7 @@ sourceApi.get('/search/one', async ctx => {
 
 sourceApi.post('/', async ctx => {
   const v = await new CreateOrUpdateSourceValidator().validate(ctx);
-  await SourceDto.createBook(v);
+  await SourceDto.createSource(v);
   ctx.success({
     msg: '新增来源成功'
   });
@@ -66,7 +66,7 @@ sourceApi.post('/', async ctx => {
 sourceApi.put('/:id', async ctx => {
   const v = await new CreateOrUpdateSourceValidator().validate(ctx);
   const id = getSafeParamId(ctx);
-  await SourceDto.updateBook(v, id);
+  await SourceDto.updateSource(v, id);
   ctx.success({
     msg: '更新来源成功'
   });
@@ -84,7 +84,7 @@ sourceApi.linDelete(
   async ctx => {
     const v = await new PositiveIdValidator().validate(ctx);
     const id = v.get('path.id');
-    await SourceDto.deleteBook(id);
+    await SourceDto.deleteSource(id);
     ctx.success({
       msg: '删除来源成功'
     });
