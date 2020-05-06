@@ -76,11 +76,6 @@ ProjectApi.put('/:id', async ctx => {
 ProjectApi.linDelete(
   'deleteProject',
   '/:id',
-  {
-    auth: '删除项目',
-    module: '项目',
-    mount: true
-  },
   groupRequired,
   async ctx => {
     const v = await new PositiveIdValidator().validate(ctx);

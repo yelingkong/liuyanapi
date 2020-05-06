@@ -76,11 +76,6 @@ bookApi.put('/:id', async ctx => {
 bookApi.linDelete(
   'deleteBook',
   '/:id',
-  {
-    auth: '删除图书',
-    module: '图书',
-    mount: true
-  },
   groupRequired,
   async ctx => {
     const v = await new PositiveIdValidator().validate(ctx);

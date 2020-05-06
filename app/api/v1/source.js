@@ -75,11 +75,6 @@ sourceApi.put('/:id', async ctx => {
 sourceApi.linDelete(
   'deleteSource',
   '/:id',
-  {
-    auth: '删除来源',
-    module: '来源',
-    mount: true
-  },
   groupRequired,
   async ctx => {
     const v = await new PositiveIdValidator().validate(ctx);

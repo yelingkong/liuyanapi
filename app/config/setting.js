@@ -6,6 +6,11 @@ module.exports = {
   countDefault: 10,
   pageDefault: 0,
   apiDir: 'app/api',
+  // 短信key
+  smsAccessKey: 'LTAI4Fj1x7md4PaGvReF84JX',
+  smsAccessKeySecret: 'ZzPGGCD5actDSojU5Te6Lozz',
+  TemplateCode: 'SMS_176538034',
+  SignName: '众寻互联',
   accessExp: 60 * 60, // 1h 单位秒
   // debug 模式
   debug: true,

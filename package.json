@@ -38,11 +38,17 @@
     "supertest": "^3.4.2"
   },
   "dependencies": {
+    "@alicloud/sms-sdk": "^1.1.6",
     "@koa/cors": "^2.2.3",
-    "koa": "^2.7.0",
+    "ccap": "^0.6.10",
+    "excel-export": "^0.5.1",
+    "koa": "^2.11.0",
     "koa-bodyparser": "^4.2.1",
     "koa-mount": "^4.0.0",
+    "koa-session": "^5.13.1",
     "koa-static": "^5.0.0",
-    "lin-mizar": "^0.2.3"
+    "lin-mizar": "^0.2.3",
+    "moment": "^2.24.0",
+    "node-xlsx": "^0.15.0"
   }
 }

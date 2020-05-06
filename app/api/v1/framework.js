@@ -75,11 +75,6 @@ frameworkApi.put('/:id', async ctx => {
 frameworkApi.linDelete(
   'deleteFramework',
   '/:id',
-  {
-    auth: '删除框架',
-    module: '框架',
-    mount: true
-  },
   groupRequired,
   async ctx => {
     const v = await new PositiveIdValidator().validate(ctx);

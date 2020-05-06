@@ -23,11 +23,11 @@ test.get('/', async ctx => {
 test.linGet(
   'getTestMsg',
   '/json',
-  {
-    auth: '测试日志记录',
-    module: '信息',
-    mount: true
-  },
+  // {
+  //   auth: '测试日志记录',
+  //   module: '信息',
+  //   mount: true
+  // },
   loginRequired,
   logger('{user.username}就是皮了一波'),
   async ctx => {
@@ -40,11 +40,11 @@ test.linGet(
 test.linGet(
   'getTestInfo',
   '/info',
-  {
-    auth: '查看lin的信息',
-    module: '信息',
-    mount: true
-  },
+  // {
+  //   auth: '查看lin的信息',
+  //   module: '信息',
+  //   mount: true
+  // },
   groupRequired,
   async ctx => {
     ctx.json({

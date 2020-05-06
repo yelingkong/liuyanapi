@@ -10,6 +10,13 @@ class PositiveIdValidator extends LinValidator {
   }
 }
 
+class PositiveBiaoshiValidator extends LinValidator {
+  constructor () {
+    super();
+    this.biaoshi = new Rule('isInt', 'id必须为正整数', { min: 1 });
+  }
+}
+
 class PaginateValidator extends LinValidator {
   constructor () {
     super();
@@ -26,5 +33,6 @@ class PaginateValidator extends LinValidator {
 
 module.exports = {
   PaginateValidator,
-  PositiveIdValidator
+  PositiveIdValidator,
+  PositiveBiaoshiValidator
 };
